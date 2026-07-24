@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { getNotifications, createNotification, archiveNotification } = require('../controllers/notificationsController');
-const { authenticateToken } = require('../middlewares/authMiddleware');
+import { getNotifications, createNotification, archiveNotification } from '../controllers/notificationsController';
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 router.get('/', authenticateToken, getNotifications);
 router.post('/', authenticateToken, createNotification);

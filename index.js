@@ -1,7 +1,8 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import dotenv from 'dotenv'
+dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
 
 const authRoutes = require('./src/routes/authRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');

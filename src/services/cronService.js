@@ -1,8 +1,8 @@
-const cron = require('node-cron');
-const { exec } = require('child_process');
-const path = require('path');
-const fs = require('fs');
-const { PrismaClient } = require('@prisma/client');
+import cron from 'node-cron';
+import { exec } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Schedule to run every day at 06:00 AM

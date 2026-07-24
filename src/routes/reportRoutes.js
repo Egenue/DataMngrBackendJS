@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const multer = require('multer');
-const { getReports, uploadReport, deleteReport, getStats, downloadReport } = require('../controllers/reportsController');
-const { authenticateToken, authorizeRoles } = require('../middlewares/authMiddleware');
+import multer from 'multer';
+import { getReports, uploadReport, deleteReport, getStats, downloadReport } from '../controllers/reportsController';
+import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

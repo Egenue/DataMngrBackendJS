@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const multer = require('multer');
-const { registerReport, getStatus, getScripts, triggerScript } = require('../controllers/automationController');
+import multer from 'multer';
+import { registerReport, getStatus, getScripts, triggerScript } from '../controllers/automationController';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

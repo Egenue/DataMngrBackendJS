@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { getUsers, createUser, toggleUserStatus, getAuditLogs } = require('../controllers/usersController');
-const { authenticateToken, authorizeRoles } = require('../middlewares/authMiddleware');
+import { getUsers, createUser, toggleUserStatus, getAuditLogs } from '../controllers/usersController';
+import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware';
 
 router.get('/', authenticateToken, authorizeRoles('Admin'), getUsers);
 router.post('/', authenticateToken, authorizeRoles('Admin'), createUser);

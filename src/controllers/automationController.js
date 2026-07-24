@@ -1,8 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-const path = require('path');
-const fs = require('fs');
-const { exec } = require('child_process');
+import path from 'path';
+import fs from 'fs';
+import { exec } from 'child_process';
 
 const registerReport = async (req, res) => {
     try {
