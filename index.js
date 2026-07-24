@@ -10,6 +10,11 @@ import automationRoutes from './src/routes/automationRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
 import notificationRoutes from './src/routes/notificationRoutes.js';
 
+// Polyfill for BigInt serialization in JSON
+BigInt.prototype.toJSON = function () {
+    return this.toString();
+};
+
 // Initialize Cron Service
 import './src/services/cronService.js';
 import { fileURLToPath } from 'url';
