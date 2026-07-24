@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import multer from 'multer';
-import { getReports, uploadReport, deleteReport, getStats, downloadReport } from '../controllers/reportsController';
-import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware';
+import { getReports, uploadReport, deleteReport, getStats, downloadReport } from '../controllers/reportsController.js';
+import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware.js';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -21,4 +21,4 @@ router.get('/stats', authenticateToken, authorizeRoles('Admin'), getStats);
 router.get('/download/:id', authenticateToken, downloadReport);
 router.delete('/:id', authenticateToken, authorizeRoles('Admin'), deleteReport);
 
-module.exports = router;
+export default router;

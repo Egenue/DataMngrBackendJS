@@ -212,4 +212,4 @@ const triggerScript = (req, res) => {
     res.json({ message: `Script '${scriptName}' has been queued for execution in the background.` });
 };
 
-module.exports = { registerReport, getStatus, getScripts, triggerScript };
+export { registerReport, getStatus, getScripts, triggerScript };

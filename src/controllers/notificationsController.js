@@ -62,4 +62,4 @@ const archiveNotification = async (req, res) => {
     }
 };
 
-module.exports = { getNotifications, createNotification, archiveNotification };
+export { getNotifications, createNotification, archiveNotification };

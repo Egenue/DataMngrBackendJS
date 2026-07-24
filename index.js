@@ -4,14 +4,14 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 
-const authRoutes = require('./src/routes/authRoutes');
-const reportRoutes = require('./src/routes/reportRoutes');
-const automationRoutes = require('./src/routes/automationRoutes');
-const userRoutes = require('./src/routes/userRoutes');
-const notificationRoutes = require('./src/routes/notificationRoutes');
+import authRoutes from './src/routes/authRoutes.js';
+import reportRoutes from './src/routes/reportRoutes.js';
+import automationRoutes from './src/routes/automationRoutes.js';
+import userRoutes from './src/routes/userRoutes.js';
+import notificationRoutes from './src/routes/notificationRoutes.js';
 
 // Initialize Cron Service
-require('./src/services/cronService');
+import './src/services/cronService.js';
 
 const app = express();
 

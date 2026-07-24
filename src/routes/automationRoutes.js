@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import multer from 'multer';
-import { registerReport, getStatus, getScripts, triggerScript } from '../controllers/automationController';
+import { registerReport, getStatus, getScripts, triggerScript } from '../controllers/automationController.js';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -19,4 +19,4 @@ router.get('/status', getStatus);
 router.get('/scripts', getScripts);
 router.post('/trigger', triggerScript);
 
-module.exports = router;
+export default router;

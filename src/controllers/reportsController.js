@@ -213,4 +213,4 @@ const downloadReport = async (req, res) => {
     }
 };
 
-module.exports = { getReports, uploadReport, deleteReport, getStats, downloadReport };
+export { getReports, uploadReport, deleteReport, getStats, downloadReport };

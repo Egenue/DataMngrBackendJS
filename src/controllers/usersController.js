@@ -88,4 +88,4 @@ const getAuditLogs = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, createUser, toggleUserStatus, getAuditLogs };
+export { getUsers, createUser, toggleUserStatus, getAuditLogs };

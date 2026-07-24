@@ -105,4 +105,4 @@ const logout = async (req, res) => {
     res.json({ message: "Logged out successfully" });
 };
 
-module.exports = { login, logout };
+export { login, logout };
