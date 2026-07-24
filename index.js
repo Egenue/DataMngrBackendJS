@@ -7,6 +7,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');
 const automationRoutes = require('./src/routes/automationRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const notificationRoutes = require('./src/routes/notificationRoutes');
 
 // Initialize Cron Service
 require('./src/services/cronService');
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/automation', automationRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 const PORT = process.env.PORT || 5000;
 

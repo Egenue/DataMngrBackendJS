@@ -6,17 +6,23 @@ const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const login = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, username, password } = req.body;
+    const identifier = email || username;
 
     try {
-        const user = await prisma.users.findUnique({
-            where: { username }
+        const user = await prisma.users.findFirst({
+            where: {
+                OR: [
+                    { email: identifier },
+                    { username: identifier }
+                ]
+            }
         });
 
         if (!user || !user.is_active) {
             await prisma.login_histories.create({
                 data: {
-                    username,
+                    username: identifier,
                     is_success: false,
                     failure_reason: "Invalid credentials or inactive account",
                     ip_address: req.ip || "127.0.0.1"
@@ -25,13 +31,18 @@ const login = async (req, res) => {
             return res.status(401).json({ message: "Invalid username or password." });
         }
 
-        const validPassword = await bcrypt.compare(password, user.password_hash);
+        let validPassword = false;
+        try {
+            validPassword = await bcrypt.compare(password, user.password_hash);
+        } catch (e) {
+            console.error("Bcrypt compare error (likely invalid hash format):", e.message);
+        }
 
         if (!validPassword) {
             await prisma.login_histories.create({
                 data: {
                     user_id: user.id,
-                    username,
+                    username: identifier,
                     is_success: false,
                     failure_reason: "Invalid password",
                     ip_address: req.ip || "127.0.0.1"
@@ -54,7 +65,7 @@ const login = async (req, res) => {
         const loginHistory = await prisma.login_histories.create({
             data: {
                 user_id: user.id,
-                username,
+                username: identifier,
                 is_success: true,
                 ip_address: req.ip || "127.0.0.1"
             }
