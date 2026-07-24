@@ -27,21 +27,28 @@ const defaultOrigins = [
     process.env.ORIGIN3,
     process.env.ORIGIN4,
     process.env.ORIGIN5,
-    process.env.CORS_ORIGIN || "https://data-mngr-iota.vercel.app"
+    process.env.CORS_ORIGIN
 ];
 
-const origin = (process.env.CORS_ORIGIN).split(',')
-
-const configuredOrigins = (origin).map(origin => origin.trim()).filter(Boolean);
+const originString = process.env.CORS_ORIGIN || "";
+const configuredOrigins = originString.split(',')
+    .map(origin => origin.trim().replace(/\/$/, '')) // Remove trailing slash
+    .filter(Boolean);
 
 const allowedOrigins = [...new Set([...defaultOrigins, ...configuredOrigins])];
 
 const corsOptions = {
     origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) { 
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        // Check if origin matches allowed list (without trailing slash)
+        const cleanOrigin = origin.replace(/\/$/, '');
+        if (allowedOrigins.includes(cleanOrigin) || cleanOrigin.endsWith('.vercel.app')) { 
             return callback(null, true);
         }
 
+        console.error(`CORS Error: Origin '${origin}' is not in the allowed list.`);
         return callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
