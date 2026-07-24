@@ -3,6 +3,11 @@ const prisma = new PrismaClient();
 import path from 'path';
 import fs from 'fs';
 import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 const registerReport = async (req, res) => {
     try {

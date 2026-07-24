@@ -3,6 +3,11 @@ import { exec } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import { PrismaClient } from '@prisma/client';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const prisma = new PrismaClient();
 
 // Schedule to run every day at 06:00 AM
