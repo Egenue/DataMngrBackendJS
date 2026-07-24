@@ -15,7 +15,36 @@ require('./src/services/cronService');
 const app = express();
 
 // Middlewares
-app.use(cors());
+const defaultOrigins = [
+    process.env.ORIGIN1,
+    process.env.ORIGIN2,
+    process.env.ORIGIN3,
+    process.env.ORIGIN4,
+    process.env.ORIGIN5,
+    process.env.CORS_ORIGIN || "https://data-mngr-iota.vercel.app"
+];
+
+const origin = (process.env.CORS_ORIGIN).split(',')
+
+const configuredOrigins = (origin).map(origin => origin.trim()).filter(Boolean);
+
+const allowedOrigins = [...new Set([...defaultOrigins, ...configuredOrigins])];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) { 
+            return callback(null, true);
+        }
+
+        return callback(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
