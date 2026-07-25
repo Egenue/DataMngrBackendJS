@@ -43,8 +43,8 @@ const createUser = async (req, res) => {
                 username,
                 email,
                 password_hash: hashedPassword,
-                role: role || "Staff",
-                department: department || "General",
+                role: role,
+                department: department,
                 is_active: true
             },
             select: { id: true, username: true, email: true, role: true }

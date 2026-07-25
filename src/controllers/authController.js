@@ -23,7 +23,7 @@ const login = async (req, res) => {
                     username: identifier,
                     is_success: false,
                     failure_reason: "Invalid credentials or inactive account",
-                    ip_address: req.ip || "127.0.0.1"
+                    ip_address: req.ip
                 }
             });
             return res.status(401).json({ message: "Invalid username or password." });
@@ -65,7 +65,7 @@ const login = async (req, res) => {
                 user_id: user.id,
                 username: identifier,
                 is_success: true,
-                ip_address: req.ip || "127.0.0.1"
+                ip_address: req.ip
             }
         });
 
@@ -88,7 +88,7 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    const { sessionId } = req.body;
+    const { sessionId } = req.body || {};
 
     if (sessionId) {
         try {
