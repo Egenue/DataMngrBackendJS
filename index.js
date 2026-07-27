@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 
 import authRoutes from './src/routes/authRoutes.js';
 import reportRoutes from './src/routes/reportRoutes.js';
@@ -68,7 +69,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static file serving for downloads
-app.use('/Storage/Reports', express.static(path.join(__dirname, 'Storage/Reports')));
+const storagePath = path.join(__dirname, 'Storage/Reports');
+if (!fs.existsSync(storagePath)) {
+    fs.mkdirSync(storagePath, { recursive: true });
+}
+app.use('/Storage/Reports', express.static(storagePath));
 
 // Routes
 app.use('/api/auth', authRoutes);
