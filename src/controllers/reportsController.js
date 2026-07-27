@@ -190,8 +190,15 @@ const downloadReport = async (req, res) => {
         const { id } = req.params;
         const report = await prisma.reports.findUnique({ where: { id: parseInt(id) } });
 
-        if (!report || !fs.existsSync(report.storage_path)) {
-            return res.status(404).json({ message: "Report file not found." });
+        if (!report) {
+            return res.status(404).json({ message: "Report not found in database." });
+        }
+
+        // Dynamically compute path in case the DB has a Windows path but server is on Linux
+        const currentPath = path.join(__dirname, '../../Storage/Reports', report.filename);
+
+        if (!fs.existsSync(currentPath)) {
+            return res.status(404).json({ message: "Report file not found on disk." });
         }
 
         await prisma.reports.update({
@@ -211,7 +218,7 @@ const downloadReport = async (req, res) => {
             }
         });
 
-        res.download(report.storage_path, report.original_name);
+        res.download(currentPath, report.original_name);
     } catch (error) {
         console.error("Download error:", error);
         res.status(500).json({ message: "Failed to download file." });
