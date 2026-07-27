@@ -8,6 +8,8 @@ import reportRoutes from './src/routes/reportRoutes.js';
 import automationRoutes from './src/routes/automationRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
 import notificationRoutes from './src/routes/notificationRoutes.js';
+import emailRoutes from './src/routes/emailRoutes.js';
+import auditLogsRoutes from './src/routes/auditLogsRoutes.js';
 
 // Polyfill for BigInt serialization in JSON
 BigInt.prototype.toJSON = function () {
@@ -74,6 +76,8 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/automation', automationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/emails', emailRoutes);
+app.use('/api', auditLogsRoutes);
 
 const PORT = process.env.PORT || 5000;
 
